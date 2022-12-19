@@ -6,7 +6,14 @@
 </head>
 <body>
 <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file">
+    <label for="uploadFile">Select file for uploading to blockchain</label>
+    <input type="file" name="file" id="uploadFile">
+    <input type="submit">
+</form>
+<form th:action="@{/check}" method="post" enctype="multipart/form-data">
+    <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+    <label for="uploadFile">Select file for checking validity</label>
+    <input type="file" name="file" id="checkFile">
     <input type="submit">
 </form>
 </body>

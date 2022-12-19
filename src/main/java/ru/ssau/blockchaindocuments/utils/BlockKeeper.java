@@ -8,6 +8,8 @@ import ru.ssau.blockchaindocuments.models.block.Block;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Component @ComponentScan(basePackages = "java.util.ArrayList")
 public class BlockKeeper {
@@ -26,8 +28,18 @@ public class BlockKeeper {
     public void addBlock(MultipartFile file) throws IOException {
         String hash = blocks.size() == 0 ? "0000" : blocks.get(blocks.size() - 1).getHash();
         Block block = new Block(file.getBytes(), hash);
-        block.mineBlock(difficulty);
         blocks.add(block);
+    }
+
+    public Boolean isFileValid(MultipartFile file) throws IOException {
+        byte[] checkBytes = file.getBytes();
+        if(isChainValid()) {
+            for (Block block : blocks) {
+                if(Arrays.equals(block.getData(), checkBytes))
+                    return true;
+            }
+        }
+        return false;
     }
 
     public Boolean isChainValid() {

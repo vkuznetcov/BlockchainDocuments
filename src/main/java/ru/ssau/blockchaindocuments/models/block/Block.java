@@ -1,5 +1,6 @@
 package ru.ssau.blockchaindocuments.models.block;
 
+import ru.ssau.blockchaindocuments.utils.BlockKeeper;
 import ru.ssau.blockchaindocuments.utils.HexUtil;
 
 import java.util.Date;
@@ -18,6 +19,7 @@ public class Block {
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
         this.hash = HexUtil.applySha256(data, previousHash + timeStamp);
+        mineBlock(BlockKeeper.difficulty);
     }
 
     public String calculateHash() {
