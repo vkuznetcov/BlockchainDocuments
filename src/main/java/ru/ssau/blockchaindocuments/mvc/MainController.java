@@ -48,7 +48,6 @@ public class MainController {
                 attributes.addFlashAttribute("message", "file is valid");
             else
                 attributes.addFlashAttribute("message", "file is not valid");
-            blockKeeper.addBlock(file);
         }
         return "redirect:/";
     }
