@@ -13,7 +13,6 @@ import java.io.IOException;
 
 @Controller
 public class MainController {
-    private final String UPLOAD_DIR = "src/main/resources/uploads/";
     BlockKeeper blockKeeper;
 
     @Autowired
@@ -27,28 +26,36 @@ public class MainController {
     }
 
     @PostMapping("/upload")
-    public String receiveFile(@RequestPart MultipartFile file, RedirectAttributes attributes) throws IOException {
+    public String receiveFile(@RequestPart MultipartFile file, RedirectAttributes attributes) {
         // check if file is empty
         if (file.isEmpty()) {
             attributes.addFlashAttribute("message", "Please select a file to upload.");
         } else {
-            blockKeeper.addBlock(file);
+            try {
+                blockKeeper.addBlock(file);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         return "redirect:/";
     }
 
     @PostMapping("/check")
-    public String checkFile(@RequestPart MultipartFile file, RedirectAttributes attributes) throws IOException {
+    public String checkFile(@RequestPart MultipartFile file, RedirectAttributes attributes) {
         // check if file is empty
         if (file.isEmpty()) {
             attributes.addFlashAttribute("message", "Please select a file to upload.");
         } else {
-            boolean check = blockKeeper.isFileValid(file);
+            boolean check;
+            try {
+                check = blockKeeper.isFileValid(file);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             if(check)
                 attributes.addFlashAttribute("message", "file is valid");
             else
                 attributes.addFlashAttribute("message", "file is not valid");
-            blockKeeper.addBlock(file);
         }
         return "redirect:/";
     }

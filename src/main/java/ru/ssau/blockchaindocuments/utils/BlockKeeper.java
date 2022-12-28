@@ -8,10 +8,9 @@ import ru.ssau.blockchaindocuments.models.block.Block;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-@Component @ComponentScan(basePackages = "java.util.ArrayList")
+@Component
+@ComponentScan(basePackages = "java.util.ArrayList")
 public class BlockKeeper {
     public static int difficulty = 2;
     ArrayList<Block> blocks;
@@ -21,21 +20,22 @@ public class BlockKeeper {
         this.blocks = blocks;
     }
 
-    public Block getBlock(int id){
+    public Block getBlock(int id) {
         return blocks.get(id);
     }
 
     public void addBlock(MultipartFile file) throws IOException {
-        String hash = blocks.size() == 0 ? "0000" : blocks.get(blocks.size() - 1).getHash();
+        String hash = blocks.size() == 0 ? "000000000000000000000000000000000000000000000000000000000000000000000" : blocks.get(blocks.size() - 1).getHash();
         Block block = new Block(file.getBytes(), hash);
         blocks.add(block);
+        JsonCreator.writeJson(block);
     }
 
     public Boolean isFileValid(MultipartFile file) throws IOException {
         byte[] checkBytes = file.getBytes();
-        if(isChainValid()) {
+        if (isChainValid()) {
             for (Block block : blocks) {
-                if(Arrays.equals(block.getData(), checkBytes))
+                if (HexUtil.applySha256(block.getData(), "").equals(HexUtil.applySha256(checkBytes, "")))
                     return true;
             }
         }
@@ -47,22 +47,18 @@ public class BlockKeeper {
         Block previousBlock;
         String hashTarget = new String(new char[difficulty]).replace('\0', '0');
 
-        //loop through blockchain to check hashes:
-        for(int i=1; i < blocks.size(); i++) {
+        for (int i = 1; i < blocks.size(); i++) {
             currentBlock = blocks.get(i);
-            previousBlock = blocks.get(i-1);
-            //compare registered hash and calculated hash:
-            if(!currentBlock.hash.equals(currentBlock.calculateHash()) ){
+            previousBlock = blocks.get(i - 1);
+            if (!currentBlock.hash.equals(currentBlock.calculateHash())) {
                 System.out.println("Current Hashes not equal");
                 return false;
             }
-            //compare previous hash and registered previous hash
-            if(!previousBlock.hash.equals(currentBlock.previousHash) ) {
+            if (!previousBlock.hash.equals(currentBlock.previousHash)) {
                 System.out.println("Previous Hashes not equal");
                 return false;
             }
-            //check if hash is solved
-            if(!currentBlock.hash.substring( 0, difficulty).equals(hashTarget)) {
+            if (!currentBlock.hash.substring(0, difficulty).equals(hashTarget)) {
                 System.out.println("This block hasn't been mined");
                 return false;
             }
