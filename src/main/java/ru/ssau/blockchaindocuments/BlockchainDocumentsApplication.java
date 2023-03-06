@@ -3,10 +3,17 @@ package ru.ssau.blockchaindocuments;
 import io.reactivex.rxjava3.core.Flowable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.web3j.abi.TypeReference;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.Utf8String;
+import org.web3j.abi.datatypes.generated.Bytes32;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Hash;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.RemoteFunctionCall;
+import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -21,6 +28,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 //@SpringBootApplication
 public class BlockchainDocumentsApplication {
@@ -32,7 +41,7 @@ public class BlockchainDocumentsApplication {
 
         Credentials credentials = Credentials.create(EthereumConsts.METAMASK_PRIVATE_KEY);
 
-        BlockDoc contract = BlockDoc.load(EthereumConsts.CONTRACT_ADDRESS, web3j, credentials, BigInteger.valueOf(300000), BigInteger.valueOf(300000));
+        BlockDoc contract = BlockDoc.load(EthereumConsts.CONTRACT_ADDRESS, web3j, credentials, BigInteger.valueOf(100_000_000_00L), BigInteger.valueOf(30_000_000L));
         System.out.println("document loaded");
 
 //        SpringApplication.run(BlockchainDocumentsApplication.class, args);
@@ -47,10 +56,34 @@ public class BlockchainDocumentsApplication {
         byte[] hash = Hash.sha3(document);
         System.out.println("sha calculated");
 
+
+//        String methodName = "addDocument";
+//        List<Type> inputParams = Arrays.asList(
+//                new Bytes32(hash),
+//        new Utf8String(metadata)
+//);
+//        List<TypeReference<?>> outputParams = Collections.emptyList();
+//        Function function = new Function(methodName, inputParams, outputParams);
+//
+//        Transaction transaction = Transaction.createFunctionCallTransaction(
+//                credentials.getAddress(),
+//                BigInteger.ZERO,
+//                BigInteger.valueOf(300000),
+//                BigInteger.valueOf(300000),
+//                EthereumConsts.CONTRACT_ADDRESS,
+//                BigInteger.ZERO,
+//                function.
+//        );
+
+
+
         BigInteger id = BigInteger.valueOf(1);
-        TransactionReceipt receipt = contract.addDocument(hash, metadata).send();
+//        TransactionReceipt receipt = contract.addDocument(hash, metadata).send();
+        RemoteFunctionCall<TransactionReceipt> transactionReceipt = contract.addDocument(hash, metadata);
+        TransactionReceipt receipt = transactionReceipt.send();
+        List<BlockDoc.DocumentAddedEventResponse> events = contract.getDocumentAddedEvents(receipt);
         System.out.println("method store");
-        System.out.println(receipt.toString());
+//        System.out.println(receipt.toString());
 
         BigInteger id1 = BigInteger.valueOf(1);
         Boolean result = contract.verifyDocument(hash, metadata).send();
