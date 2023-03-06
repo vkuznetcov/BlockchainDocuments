@@ -28,7 +28,7 @@ public class BlockKeeper {
         String hash = blocks.size() == 0 ? "000000000000000000000000000000000000000000000000000000000000000000000" : blocks.get(blocks.size() - 1).getHash();
         Block block = new Block(file.getBytes(), hash);
         blocks.add(block);
-        JsonCreator.writeJson(block);
+//        JsonCreator.writeJson(block);
     }
 
     public Boolean isFileValid(MultipartFile file) throws IOException {

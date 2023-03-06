@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import org.web3j.tuples.generated.Tuple2;
 import org.web3j.tx.Contract;
 import org.web3j.utils.Convert;
-import ru.ssau.blockchaindocuments.ethereum.contracts.DocumentStore;
+import ru.ssau.blockchaindocuments.ethereum.consts.EthereumConsts;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -26,15 +26,13 @@ import java.util.Arrays;
 public class BlockchainDocumentsApplication {
 
     public static void main(String[] args) throws Exception {
-        String contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138";
-        String metamaskPrivateKey = "318ef5d4db8f9fc118d4361f17b8dc9c8781b3f870c74aa8e102d4333f3064d4";
 
         Web3j web3j = Web3j.build(new HttpService("https://goerli.infura.io/v3/304127ae5cee4e06b114cb3d57749335"));
 
 
-        Credentials credentials = Credentials.create(metamaskPrivateKey);
+        Credentials credentials = Credentials.create(EthereumConsts.METAMASK_PRIVATE_KEY);
 
-        DocumentStore contract = DocumentStore.load(contractAddress, web3j, credentials, BigInteger.valueOf(400000), BigInteger.valueOf(10000000));
+        BlockDoc contract = BlockDoc.load(EthereumConsts.CONTRACT_ADDRESS, web3j, credentials, BigInteger.valueOf(300000), BigInteger.valueOf(300000));
         System.out.println("document loaded");
 
 //        SpringApplication.run(BlockchainDocumentsApplication.class, args);
@@ -49,17 +47,16 @@ public class BlockchainDocumentsApplication {
         byte[] hash = Hash.sha3(document);
         System.out.println("sha calculated");
 
-//        BigInteger id = BigInteger.valueOf(1);
-//        TransactionReceipt receipt = contract.storeDocument(id, hash, metadata).send();
-//        System.out.println("method store");
-//        System.out.println(receipt.toString());
+        BigInteger id = BigInteger.valueOf(1);
+        TransactionReceipt receipt = contract.addDocument(hash, metadata).send();
+        System.out.println("method store");
+        System.out.println(receipt.toString());
 
         BigInteger id1 = BigInteger.valueOf(1);
-        Tuple2<byte[], String> result = contract.getDocument(id1).send();
+        Boolean result = contract.verifyDocument(hash, metadata).send();
         System.out.println("method get");
-        byte[] storedHash = result.component1();
 
-        if (Arrays.equals(hash, storedHash)) {
+        if (result) {
             System.out.println("Document is verified!");
         } else {
             System.out.println("Document verification failed.");
