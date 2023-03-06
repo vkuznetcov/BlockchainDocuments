@@ -1,7 +1,7 @@
 package ru.ssau.blockchaindocuments.ethereum.consts;
 
 public interface EthereumConsts {
-    String CONTRACT_ADDRESS = "0x2C8088a68f09690467BAc4b3aAf6020d41dFc794";
+    String CONTRACT_ADDRESS = "0xDEA3b3D37b199435Da4f8F8df8D662B0888EAad7";
     String CONTRACT_ABI = "[\n" +
             "\t{\n" +
             "\t\t\"anonymous\": false,\n" +
