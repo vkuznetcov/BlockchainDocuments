@@ -14,8 +14,40 @@ window.addEventListener('load', async function () {
     }
 })
 
-const contractAddress = "0xDEA3b3D37b199435Da4f8F8df8D662B0888EAad7"
+const contractAddress = "0x4BA5F9B346bC1812d48b6E760e03007bef893eC4"
 const contractABI = [
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "bytes32",
+                "name": "hash",
+                "type": "bytes32"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "metadata",
+                "type": "string"
+            }
+        ],
+        "name": "DocumentAdded",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "bytes32",
+                "name": "hash",
+                "type": "bytes32"
+            }
+        ],
+        "name": "DocumentDeleted",
+        "type": "event"
+    },
     {
         "inputs": [
             {
@@ -35,23 +67,17 @@ const contractABI = [
         "type": "function"
     },
     {
-        "anonymous": false,
         "inputs": [
             {
-                "indexed": true,
                 "internalType": "bytes32",
                 "name": "hash",
                 "type": "bytes32"
-            },
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "metadata",
-                "type": "string"
             }
         ],
-        "name": "DocumentAdded",
-        "type": "event"
+        "name": "deleteDocument",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
         "inputs": [
@@ -103,7 +129,7 @@ function processFile() {
     })
 }
 
-export async function addDocument() {
+async function addDocument() {
     try {
         const [hex, metadata] = await processFile();
         const gasPrice = await web3.eth.getGasPrice();
@@ -130,20 +156,68 @@ export async function addDocument() {
     }
 }
 
-async function verifyDocument() {
+async function deleteDocument() {
     try {
         const [hex, metadata] = await processFile();
+        const gasPrice = await web3.eth.getGasPrice();
+        const accountAddress = (await web3.eth.getAccounts())[0];
         const contract = new web3.eth.Contract(contractABI, contractAddress);
-        contract.methods.verifyDocument(hex, metadata).call().then(result => console.log(result))
+
+        console.log('Current gas price: ', web3.utils.fromWei(gasPrice, 'gwei'), ' GWei')
+        console.log('Current commission:', web3.utils.fromWei(gasPrice, 'ether'), ' ETH')
+
+        const transaction = {
+            from: accountAddress,
+            to: contractAddress,
+            gasPrice: gasPrice,
+            gasLimit: gasLimit,
+            value: 0x00,
+            data: contract.methods.deleteDocument(hex).encodeABI()
+        }
+
+        const signedTx = await web3.eth.accounts.signTransaction(transaction, METAMASK_PRIVATE_KEY)
+        await web3.eth.sendSignedTransaction(signedTx.rawTransaction).on('transactionHash', console.log).on('error', console.error)
+
     } catch (error) {
         console.error(error)
     }
 }
 
-document.getElementById("addDocument").onclick = async function() {
+async function verifyDocument() {
+    try {
+        const [hex, metadata] = await processFile();
+        const contract = new web3.eth.Contract(contractABI, contractAddress);
+        contract.methods.verifyDocument(hex, metadata).call().then(result => {
+                console.log(result)
+                result === true ? (
+                    document.getElementById('verifyResult').innerHTML = 'Your document is verified'
+                ) : (
+                    document.getElementById('verifyResult').innerHTML = 'Your document is not verified'
+                )
+            }
+        )
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+document.getElementById("addDocument").onclick = async function () {
     await addDocument()
 }
 
-document.getElementById("verifyDocument").onclick = async function() {
+document.getElementById("verifyDocument").onclick = async function () {
+    await verifyDocument()
+}
+
+document.getElementById("deleteDocument").onclick = async function () {
+    await deleteDocument()
+}
+
+document.getElementById("processDocument").onclick = async function () {
+    const [hex, metadata] = await processFile()
+    console.log(metadata)
+}
+
+document.getElementById("myFile").onchange = async function () {
     await verifyDocument()
 }
