@@ -10,12 +10,134 @@ window.addEventListener('load', async function () {
 
     } else {
         console.log('No Web3 Detected... using HTTP Provider')
-        window.web3 = new Web3(new Web3.providers.HttpProvider("https://goerli.infura.io/v3/304127ae5cee4e06b114cb3d57749335"))
+        // window.web3 = new Web3(new Web3.providers.HttpProvider("https://goerli.infura.io/v3/304127ae5cee4e06b114cb3d57749335"))
+        window.web3 = new Web3(new Web3.providers.HttpProvider("https://sepolia.infura.io/v3/304127ae5cee4e06b114cb3d57749335"))
     }
 })
 
-const contractAddress = "0x4BA5F9B346bC1812d48b6E760e03007bef893eC4"
+// const contractAddress = "0x4BA5F9B346bC1812d48b6E760e03007bef893eC4"
+const contractAddress = "0xD52D17B654387cA7C3c1b57cb2e614Fe3C2aEdA4"
+// const contractABI = [
+//     {
+//         "anonymous": false,
+//         "inputs": [
+//             {
+//                 "indexed": true,
+//                 "internalType": "bytes32",
+//                 "name": "hash",
+//                 "type": "bytes32"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "string",
+//                 "name": "metadata",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "DocumentAdded",
+//         "type": "event"
+//     },
+//     {
+//         "anonymous": false,
+//         "inputs": [
+//             {
+//                 "indexed": true,
+//                 "internalType": "bytes32",
+//                 "name": "hash",
+//                 "type": "bytes32"
+//             }
+//         ],
+//         "name": "DocumentDeleted",
+//         "type": "event"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "bytes32",
+//                 "name": "hash",
+//                 "type": "bytes32"
+//             },
+//             {
+//                 "internalType": "string",
+//                 "name": "metadata",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "addDocument",
+//         "outputs": [],
+//         "stateMutability": "nonpayable",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "bytes32",
+//                 "name": "hash",
+//                 "type": "bytes32"
+//             }
+//         ],
+//         "name": "deleteDocument",
+//         "outputs": [],
+//         "stateMutability": "nonpayable",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "bytes32",
+//                 "name": "hash",
+//                 "type": "bytes32"
+//             },
+//             {
+//                 "internalType": "string",
+//                 "name": "metadata",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "verifyDocument",
+//         "outputs": [
+//             {
+//                 "internalType": "bool",
+//                 "name": "",
+//                 "type": "bool"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     }
+// ]
 const contractABI = [
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "hash",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "string",
+                "name": "metadata",
+                "type": "string"
+            }
+        ],
+        "name": "addDocument",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "hash",
+                "type": "bytes32"
+            }
+        ],
+        "name": "deleteDocument",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
     {
         "anonymous": false,
         "inputs": [
@@ -47,37 +169,6 @@ const contractABI = [
         ],
         "name": "DocumentDeleted",
         "type": "event"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "bytes32",
-                "name": "hash",
-                "type": "bytes32"
-            },
-            {
-                "internalType": "string",
-                "name": "metadata",
-                "type": "string"
-            }
-        ],
-        "name": "addDocument",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "bytes32",
-                "name": "hash",
-                "type": "bytes32"
-            }
-        ],
-        "name": "deleteDocument",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
     },
     {
         "inputs": [
