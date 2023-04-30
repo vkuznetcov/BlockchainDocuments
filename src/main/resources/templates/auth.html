@@ -1,39 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login Page in HTML with CSS Code Example</title>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Login Page in HTML with CSS Code Example</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
 
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
 
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
-  <script type="text/javascript" src="/js/enableETH.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+    <script type="text/javascript" src="/js/enableETH.js"></script>
 
 </head>
 <body>
 <div class="box-form">
-  <div class="left">
-    <div class="overlay">
-      <h1>Doc <br> Block.</h1>
-      <p>Современная система <br> для верификации цифровых документов</p>
+    <div class="left">
+        <div class="overlay">
+            <h1>Doc <br> Block.</h1>
+            <p>Современная система <br> для верификации цифровых документов</p>
+        </div>
     </div>
-  </div>
 
 
-  <div class="right" id="right">
-    <h5>Авторизуйтесь</h5>
-    <p>Нет аккаунта? <a th:href="@{/reg}" onclick="setAuth()">Зарегестрируйтесь</a>, это займет меньше минуты</p>
-    <div class="inputs">
-      <input type="text" id="login" placeholder="Логин">
+    <div class="right" id="right">
+        <h5>Авторизуйтесь</h5>
+        <p>Нет аккаунта? <a th:href="@{/reg}" onclick="setAuth()">Зарегестрируйтесь</a>, это займет меньше минуты</p>
+        <div class="inputs">
 
-      <input type="password" id="password" placeholder="Пароль">
+            <div class="inputFields">
+                <input type="text" id="login" placeholder=" ">
+                <span>Логин</span>
+            </div>
+
+            <div class="inputFields">
+                <input type="password" id="password" placeholder=" ">
+                <span>Пароль</span>
+            </div>
+        </div>
+        <button class="action" onclick="checkUser()">Авторизоваться</button>
     </div>
-    <button class="action" onclick="checkUser()">Авторизоваться</button>
-  </div>
 
 </div>
 <script type="text/javascript" src="/js/auth.js"></script>
