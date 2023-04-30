@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page in HTML with CSS Code Example</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+    <script type="text/javascript" src="/js/enableETH.js"></script>
+
+</head>
+<body>
+<div class="box-form">
+    <div class="left">
+        <div class="overlay">
+            <h1>Doc <br> Block.</h1>
+            <p>Современная система <br> для верификации цифровых документов</p>
+        </div>
+    </div>
+
+
+    <div class="right">
+        <h5>Регистрируйтесь</h5>
+        <div class="inputs">
+            <input type="text" id="login" placeholder="Логин">
+
+            <input type="password" id="password" placeholder="Пароль">
+
+            <input type="password" id="repassword" placeholder="Повторите пароль">
+
+            <input type="text" id="authKey" placeholder="Код авторизации">
+        </div>
+        <p>Нет ключа авторизации? <br>Напишите <a href="https://t.me/vkuznetcov" target="_blank"
+                                                  rel="noopener noreferrer">разработчику</a> для его получения</p>
+
+        <button class="action" onclick="addUser()">Зарегистрироваться</button>
+    </div>
+
+</div>
+<script type="text/javascript" src="/js/auth.js"></script>
+<script type="text/javascript" src="/js/consts/authConsts.js"></script>
+<script type="text/javascript" src="/js/consts/metaMaskConsts.js"></script>
+</body>
+</html>
