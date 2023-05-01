@@ -27,19 +27,20 @@
     <div class="right" id="right">
         <h5>Авторизуйтесь</h5>
         <p>Нет аккаунта? <a th:href="@{/reg}" onclick="setAuth()">Зарегестрируйтесь</a>, это займет меньше минуты</p>
+fized        <form action="">
         <div class="inputs">
-
             <div class="inputFields">
-                <input type="text" id="login" placeholder=" ">
+                <input type="text" id="login" placeholder=" " required>
                 <span>Логин</span>
             </div>
 
             <div class="inputFields">
-                <input type="password" id="password" placeholder=" ">
+                <input type="password" id="password" placeholder=" " >
                 <span>Пароль</span>
             </div>
+            <input type="submit" class="action" onclick="checkUser()" value="Авторизоваться">
         </div>
-        <button class="action" onclick="checkUser()">Авторизоваться</button>
+        </form>
     </div>
 
 </div>

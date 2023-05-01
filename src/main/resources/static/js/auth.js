@@ -48,9 +48,6 @@ function addUserId(userId){
 }
 
 async function checkUser(){
-    let login = document.getElementById("login").value;
-    let password = document.getElementById("password").value;
-
     const contract = new web3.eth.Contract(authConsts.CONTRACT_ABI, authConsts.CONTRACT_ADDRESS);
 
     try {

@@ -137,6 +137,8 @@ body {
 }
 
 .box-form .right .action {
+    text-align: center;
+    width: 15%;
     float: right;
     color: #fff;
     font-size: 16px;
@@ -144,7 +146,7 @@ body {
     border-radius: 50px;
     display: inline-block;
     position: absolute;
-    bottom: 10%;
+    bottom: 7%;
     right: 5%;
     border: 0;
     cursor: pointer;
@@ -164,4 +166,21 @@ body {
 .box-form .right .button {
     padding: 5px;
     margin: auto;
+}
+
+.validation-message {
+    font-size: 10px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 18%;
+    width: 60%;
+    padding: 10px;
+    background-color: #fff;
+    border: none;
+    z-index: 9999;
+}
+
+input:required {
+    border-color: red;
 }
