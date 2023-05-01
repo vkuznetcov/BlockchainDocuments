@@ -34,12 +34,11 @@
             </div>
         </div>
         <!--                <input type="file" id="myFile" name="filename">-->
-        <button class="button" id="addDocument">Добавить файл</button>
-        <button class="button" id="verifyDocument">Верифицировать файл</button>
-        <button class="button" id="deleteDocument">Удалить файл</button>
-        <button class="button" id="processDocument">Получить информацию о файле</button>
-        <div id="verifyResult"></div>
-        <div id="transactionResult"></div>
+        <button class="button" onclick="addDocument()">Добавить файл</button>
+        <button class="button" onclick="verifyDocument()">Верифицировать файл</button>
+        <button class="button" onclick="deleteDocument()">Удалить файл</button>
+        <button class="button" onclick="getDocData()">Получить информацию о файле</button>
+        <div class="info" id="info"></div>
     </div>
 </div>
 
@@ -48,6 +47,7 @@
 <script type="text/javascript" src="/js/dragndrop.js"></script>
 <script type="text/javascript" src="/js/consts/metaMaskConsts.js"></script>
 <script type="text/javascript" src="/js/consts/docConsts.js"></script>
+<script type="text/javascript" src="/js/docBlock.js"></script>
 
 </body>
 </html>
