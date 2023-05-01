@@ -164,21 +164,13 @@ body {
 }
 
 .box-form .right .button {
-    padding: 5px;
-    margin: auto;
-}
-
-.validation-message {
-    font-size: 10px;
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 18%;
-    width: 60%;
-    padding: 10px;
-    background-color: #fff;
-    border: none;
-    z-index: 9999;
+    padding: 9px;
+    margin: 20px 8px 8px;
+    font-family: "Open Sans", sans-serif;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1px solid rgb(199, 199, 199);
+    background-color: rgb(231, 231, 231);
 }
 
 input:required {

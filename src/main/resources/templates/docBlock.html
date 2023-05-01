@@ -9,6 +9,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dragndrop.css">
 
     <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
     <script type="text/javascript" src="/js/enableETH.js"></script>
@@ -25,27 +26,28 @@
 
 
     <div class="right" id="right">
-        <h5>Авторизуйтесь</h5>
-        <p>Нет аккаунта? <a th:href="@{/reg}" onclick="setAuth()">Зарегестрируйтесь</a>, это займет меньше минуты</p>
-        <form action="">
-            <div class="inputs">
-                <div class="inputFields">
-                    <input type="text" id="login" placeholder=" " required>
-                    <span>Логин</span>
-                </div>
-
-                <div class="inputFields">
-                    <input type="password" id="password" placeholder=" ">
-                    <span>Пароль</span>
-                </div>
-                <input type="submit" class="action" value="Авторизоваться" onclick="checkUser(event)">
+        <h5>Проверьте</h5>
+        <div class="inputs">
+            <div id="drop-zone">
+                <span class="file-upload-text">Выберите файл или переместите его сюда</span>
+                <input type="file" class="file-upload-input" id="file-input">
             </div>
-        </form>
+        </div>
+        <!--                <input type="file" id="myFile" name="filename">-->
+        <button class="button" id="addDocument">Добавить файл</button>
+        <button class="button" id="verifyDocument">Верифицировать файл</button>
+        <button class="button" id="deleteDocument">Удалить файл</button>
+        <button class="button" id="processDocument">Получить информацию о файле</button>
+        <div id="verifyResult"></div>
+        <div id="transactionResult"></div>
     </div>
+</div>
 
 </div>
-<script type="text/javascript" src="/js/auth.js"></script>
-<script type="text/javascript" src="/js/consts/authConsts.js"></script>
+
+<script type="text/javascript" src="/js/dragndrop.js"></script>
 <script type="text/javascript" src="/js/consts/metaMaskConsts.js"></script>
+<script type="text/javascript" src="/js/consts/docConsts.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,28 @@
+#drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative; /* Добавляем */
+    height: 100px;
+}
+
+#drop-zone .file-upload-text {
+    position: absolute; /* Добавляем */
+    top: 50%; /* Перемещаем спан на вертикальное центрирование */
+    left: 50%; /* Перемещаем спан на горизонтальное центрирование */
+    transform: translate(-50%, -50%); /* Корректируем положение спана */
+    display: block;
+    margin-bottom: 10px;
+}
+
+.file-upload-input {
+    opacity: 0;
+    cursor: pointer;
+    position: absolute; /* Добавляем */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

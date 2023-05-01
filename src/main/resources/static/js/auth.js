@@ -47,8 +47,12 @@ function addUserId(userId){
     localStorage.setItem('userId', userId)
 }
 
-async function checkUser(){
+async function checkUser(event){
+    event.preventDefault();
     const contract = new web3.eth.Contract(authConsts.CONTRACT_ABI, authConsts.CONTRACT_ADDRESS);
+
+    let login = document.getElementById("login").value;
+    let password = document.getElementById("password").value;
 
     try {
         const userId = await contract.methods.getUserId(login, password).call();

@@ -18,6 +18,6 @@ public class MainController {
 
     @GetMapping("/docblock")
     public String showMain() {
-        return "main";
+        return "docBlock";
     }
 }
